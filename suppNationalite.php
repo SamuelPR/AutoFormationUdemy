@@ -1,26 +1,17 @@
-<?php include "header.ink.php";
-include "connexionPdo.php";
-$num = $GET["num"];
+<?php session_start();
+include_once "connexionPdo.php";
+$num = $_GET["num"];
 
-$req = $myPdo->prepare("DELETE FROM nationalite where num = :num");
+$req = $myPdo->prepare("DELETE FROM nationalite WHERE num = :num");
 $req->bindParam(":num", $num);
 $nb = $req->execute();
 
-
-echo "<div class=<\"container mt-5\">";
-echo "<div class=\"row \">
-    <div class=\"col mt-5\">";
 if ($nb == 1) {
-    echo "<div class=\"alert alert-success mt-3\" role=\"alert\">
- La nationalité à bien été supprimé </div>";
+    $_SESSION['messages']=["success"=>" La nationalité à bien été supprimé"];
 } else {
-    echo "<div class=\"alert alert-primary mt-3\" role=\"alert\">
-    La nationalité n'a pas été supprimé </div>";
+    $_SESSION['messages']=["warning"=>" La nationalité m'a pas été supprimé"];
 }
-?>
-</div>
-</div>
-<a href="listeNationalite.php" class="btn btn-danger">Revenir à la liste des nationalité</a>
-</div>
+header('location: listeNationalite.php');
+exit();
 
-<?php include "footer.ink.php" ?>
+?>
