@@ -63,4 +63,62 @@ class Continent
         return $lesResultats;
     }
 
+    /**
+     * Trouve un continent par son num
+     *
+     * @param integer $id numéro du continent
+     * @return Continent objet continent trouvé
+     */
+    public static function findById(int $id) :Continent
+    {
+        $req=MonPdo::getInstance()->prepare("SELECT * from continent where num= :id");
+        $req->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Continent');
+        $req->bindParam(':id', $id);
+        $req->execute();
+        $leResultat=$req->fetch();
+        return $leResultat;
+    
+    }
+
+    /**
+     * Permet d'ajouter un continent
+     *
+     * @param Continent $continent continent à ajouter
+     * @return integer resultat(1 si reussi, 0 si pas reussi)
+     */
+    public static function add(Continent $continent) :int{
+        $req=MonPdo::getInstance()->prepare("insert into continent(libelle) value(:libelle)");
+        $req->bindParam(':libelle', $continent->getLibelle());
+        $nb=$req->execute();
+        return $nb;
+    
+
+    }
+
+    /**
+     * permet de modifier le document
+     *
+     * @param Continent $continent continent à modifer
+     * @return integer resultat(1 si reussi, 0 si pas reussi)
+     */
+    public static function update(Continent $continent) :int{
+        $req=MonPdo::getInstance()->prepare("update continent set libelle= :libelle where num= :id");
+        $req->bindParam(':id', $continent->getNum());
+        $req->bindParam(':libelle', $continent->getLibelle());
+        $nb=$req->execute();
+        return $nb;
+    }
+
+    /**
+     * permet de supprimer un continent
+     *
+     * @param Continent $continent le continent à supprimer
+     * @return integer resultat(1 si reussi, 0 si pas reussi)
+     */
+    public static function delete(Continent $continent) :int{
+        $req=MonPdo::getInstance()->prepare("delete from continent where num= :id");
+        $req->bindParam(':id', $continent->getNum());
+        $nb=$req->execute();
+        return $nb;
+    }
 }
