@@ -80,6 +80,13 @@
                         <a class="dropdown-item" href="formAjoutNationalite.php">Ajouter une nationalitée</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bookmark"></i> Gestion des Continents</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Listes des Continents</a>
+                        <a class="dropdown-item" href="#">Ajouter un Continent</a>
+                    </div>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -87,3 +94,16 @@
             </form>
         </div>
     </nav>
+    <?php
+    if(!empty($_SESSION['messages'])){
+    $myMessages = $_SESSION['messages'];
+    foreach($myMessages as $key=>$message){
+        echo '<div class="alert alert-'.$key.' alert-dismissible fade show mt-2" role="alert">'.$message.'
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+    }
+    $_SESSION['messages']=[];
+    ?>
+}
