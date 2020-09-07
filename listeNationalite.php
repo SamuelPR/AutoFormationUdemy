@@ -49,12 +49,12 @@ if(!empty($_SESSION['messages'])){
     <form action="" method="get" class="border border-primary rounded p-3 mt-3 mb-3"> 
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control " id="libelle" placeholder="Saisir le libellé" name="libelle" value=" <?php echo $libelle; ?>">
+                <input type="text" class="form-control " id="libelle" placeholder="Saisir le libellé" name="libelle" value="<?php echo $libelle; ?>">
             </div>
             <div class="col">
             <select name="continent" class="form-control">
                 <?php
-                echo "<option value='Tous'>Tous les continents </option>";
+                echo "<option value='Tous'>Tous les continents</option>";
                     foreach($myContinent as $continent){
                         $selection=$continent->num == $continentVariable ? 'selected' : '';
                         echo "<option value='$continent->num' $selection>$continent->libelle</option>";
